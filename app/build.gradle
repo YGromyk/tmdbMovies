@@ -25,12 +25,14 @@ android {
 
         Properties properties = new Properties()
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
         def tmdbApiKey = properties.getProperty("tmdb_api_key", "")
+        def instaBug = properties.getProperty("insta_bug")
 
         it.buildConfigField 'String', "TMDB_API_KEY", tmdbApiKey
-
+        it.buildConfigField 'String', "INSTA_BUG", instaBug
         it.resValue 'string', "api_key", tmdbApiKey
-
+        it.resValue 'string', "insta_bug", instaBug
     }
 }
 
@@ -71,6 +73,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
 
+    // instabug
+    implementation 'com.instabug.library:instabug:8.0.15'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

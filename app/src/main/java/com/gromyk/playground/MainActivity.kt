@@ -2,11 +2,16 @@ package com.gromyk.playground
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.lang.RuntimeException
 
 class MainActivity : AppCompatActivity(), LifecycleOwner {
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
@@ -17,6 +22,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initViewModel()
+        GlobalScope.launch {
+            delay(5000)
+        }
     }
 
     private fun initViewModel() {
