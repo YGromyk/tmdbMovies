@@ -1,7 +1,7 @@
 package com.gromyk.playground.repositories
 
-import com.gromyk.playground.api.services.TmdbService
 import com.gromyk.playground.api.dtos.movies.TmdbMovie
+import com.gromyk.playground.api.services.TmdbService
 import timber.log.Timber
 
 class MovieRepository(private val api: TmdbService) {
@@ -14,13 +14,11 @@ class MovieRepository(private val api: TmdbService) {
                 val movieResponse = response.body()
                 //This is single object Tmdb Movie response
                 popularMovies = movieResponse?.results?.toMutableList()
-                Timber.d(popularMovies.toString())
             } else {
                 Timber.e(response.errorBody().toString())
             }
         } catch (e: Exception) {
         }
-
         return popularMovies
     }
 }

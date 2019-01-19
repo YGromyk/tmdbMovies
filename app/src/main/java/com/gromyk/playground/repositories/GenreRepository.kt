@@ -17,7 +17,6 @@ class GenreRepository(private val api: GenreService) {
             if (response.isSuccessful) {
                 val genresResponse = response.body()
                 genres = genresResponse?.genres?.toMutableList()
-                Timber.d(genres.toString())
             } else {
                 Timber.e(response.errorBody().toString())
             }
