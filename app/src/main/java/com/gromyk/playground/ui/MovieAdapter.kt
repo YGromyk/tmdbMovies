@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
 import com.gromyk.playground.api.BaseUrl
-import com.gromyk.playground.api.dtos.TmdbMovie
+import com.gromyk.playground.api.dtos.movies.TmdbMovie
 import com.gromyk.playground.utils.loadPhoto
 
 /**
@@ -33,12 +33,23 @@ class MovieAdapter(private val items: List<TmdbMovie>, var listener: OnMovieSele
         private val descriptionTextView: TextView by lazy { view.findViewById<TextView>(R.id.descriptionTextView) }
         private val rateTextView: TextView by lazy { view.findViewById<TextView>(R.id.rateTextView) }
         private val movieImageView: ImageView by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
+        private val releaseDateTextView: TextView by lazy { view.findViewById<TextView>(R.id.releaseDateTextView) }
+        private val genresTextView: TextView by lazy { view.findViewById<TextView>(R.id.genresTextView) }
+
         fun bindView(item: TmdbMovie) {
             itemView.setOnClickListener { listener.clickOnMovie(item) }
             nameTextView.text = item.title
             descriptionTextView.text = item.overview
             rateTextView.text = item.vote_average.toString()
+            releaseDateTextView.text = item.release_date
             movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + item.backdrop_path)
+            val genres = buildString {
+                item.genres.forEach {
+                    append(it)
+                    append(if (it === item.genres.last()) "." else ", ")
+                }
+            }
+            genresTextView.text = genres
         }
     }
 

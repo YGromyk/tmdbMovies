@@ -1,4 +1,4 @@
-package com.gromyk.playground.api.dtos
+package com.gromyk.playground.api.dtos.movies
 
 data class TmdbMovieResponse(
     val results: List<TmdbMovie>

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
-import com.gromyk.playground.api.dtos.TmdbMovie
+import com.gromyk.playground.api.dtos.movies.TmdbMovie
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 /**

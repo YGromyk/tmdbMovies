@@ -1,7 +1,7 @@
-package com.gromyk.playground
+package com.gromyk.playground.repositories
 
-import com.gromyk.playground.api.TmdbService
-import com.gromyk.playground.api.dtos.TmdbMovie
+import com.gromyk.playground.api.services.TmdbService
+import com.gromyk.playground.api.dtos.movies.TmdbMovie
 import timber.log.Timber
 
 class MovieRepository(private val api: TmdbService) {
@@ -23,5 +23,4 @@ class MovieRepository(private val api: TmdbService) {
 
         return popularMovies
     }
-
 }

@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "0.1"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                consumerProguardFiles 'proguard-rules.pro'
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+
+    }
+
+    dependencies {
+        def liveData = "1.1.1"
+        def roomVersion = "1.1.1"
+        def googleDagger = "2.16"
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+        // test
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+        // livedata
+        implementation "android.arch.lifecycle:livedata:${liveData}"
+
+        kapt "com.google.dagger:dagger-compiler:${googleDagger}"
+
+
+        implementation "android.arch.persistence.room:runtime:${roomVersion}"
+        annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+        kapt "android.arch.persistence.room:compiler:$roomVersion"
+    }
+    repositories {
+        mavenCentral()
+    }
+}
