@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
-import com.gromyk.playground.api.dtos.movies.TmdbMovie
+import com.gromyk.playground.api.dtos.movies.MovieDTO
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 /**
@@ -56,18 +56,18 @@ class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
         }
     }
 
-    private fun onMoviesLoaded(movies: List<TmdbMovie>) {
+    private fun onMoviesLoaded(movies: List<MovieDTO>) {
         swipeRefreshLayout.isRefreshing = false
         adapter = MovieAdapter(movies, this)
         contentView.adapter = adapter
     }
 
-    override fun clickOnMovie(movie: TmdbMovie) {
+    override fun clickOnMovie(movie: MovieDTO) {
 
     }
 
-
     companion object {
+        @Suppress("unused")
         fun newInstance() = MoviesFragment()
     }
 }

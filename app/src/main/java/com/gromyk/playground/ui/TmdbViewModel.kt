@@ -3,7 +3,7 @@ package com.gromyk.playground.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gromyk.playground.api.ApiFactory
-import com.gromyk.playground.api.dtos.movies.TmdbMovie
+import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.repositories.AllDataRepository
 import com.gromyk.playground.repositories.MovieRepository
 import kotlinx.coroutines.*
@@ -16,28 +16,28 @@ class TmdbViewModel : ViewModel() {
     private val scope = CoroutineScope(coroutineContext)
 
     private val repository: MovieRepository =
-            MovieRepository(ApiFactory.tmdbApi)
+        MovieRepository(ApiFactory.tmdbApi)
 
-    val popularMoviesLiveData = MutableLiveData<MutableList<TmdbMovie>>()
+    val popularMoviesLiveData = MutableLiveData<MutableList<MovieDTO>>()
 
     fun fetchMovies() {
         scope.launch {
             val popularMovies = repository.getPopularMovies()
             popularMoviesLiveData.postValue(
-                    popularMovies?.map {
-                        it.genres = {
-                            val list = mutableListOf<String>()
-                            it.genre_ids.forEach { id ->
-                                list.add(
-                                        AllDataRepository.getInstance().genres.value
-                                                ?.find { it.id == id }?.name
-                                                ?: return@forEach
-                                )
-                            }
-                            list
-                        }.invoke()
-                        it
-                    }?.toMutableList()
+                popularMovies?.map { item ->
+                    item.genres = {
+                        val list = mutableListOf<String>()
+                        item.genreIds?.forEach { id ->
+                            list.add(
+                                AllDataRepository.getInstance().genres.value
+                                    ?.find { it.id == id }?.name
+                                    ?: return@forEach
+                            )
+                        }
+                        list
+                    }.invoke()
+                    item
+                }?.toMutableList()
             )
         }
     }

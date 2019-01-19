@@ -8,15 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
 import com.gromyk.playground.api.BaseUrl
-import com.gromyk.playground.api.dtos.movies.TmdbMovie
+import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.utils.loadPhoto
 
 /**
  * Created by Yuriy Gromyk on 1/18/19.
  */
 
-class MovieAdapter(private val items: List<TmdbMovie>, var listener: OnMovieSelected) :
-        RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(private val items: List<MovieDTO>, var listener: OnMovieSelected) :
+    RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
@@ -36,13 +36,13 @@ class MovieAdapter(private val items: List<TmdbMovie>, var listener: OnMovieSele
         private val releaseDateTextView: TextView by lazy { view.findViewById<TextView>(R.id.releaseDateTextView) }
         private val genresTextView: TextView by lazy { view.findViewById<TextView>(R.id.genresTextView) }
 
-        fun bindView(item: TmdbMovie) {
+        fun bindView(item: MovieDTO) {
             itemView.setOnClickListener { listener.clickOnMovie(item) }
             nameTextView.text = item.title
             descriptionTextView.text = item.overview
-            rateTextView.text = item.vote_average.toString()
-            releaseDateTextView.text = item.release_date
-            movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + item.backdrop_path)
+            rateTextView.text = item.voteAverage.toString()
+            releaseDateTextView.text = item.releaseDate
+            movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + item.backdropPath)
             val genres = buildString {
                 item.genres.forEach {
                     append(it)
@@ -54,6 +54,6 @@ class MovieAdapter(private val items: List<TmdbMovie>, var listener: OnMovieSele
     }
 
     interface OnMovieSelected {
-        fun clickOnMovie(movie: TmdbMovie)
+        fun clickOnMovie(movie: MovieDTO)
     }
 }

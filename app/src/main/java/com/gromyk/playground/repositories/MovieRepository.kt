@@ -1,12 +1,12 @@
 package com.gromyk.playground.repositories
 
-import com.gromyk.playground.api.dtos.movies.TmdbMovie
+import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.api.services.TmdbService
 import timber.log.Timber
 
 class MovieRepository(private val api: TmdbService) {
-    suspend fun getPopularMovies(): MutableList<TmdbMovie>? {
-        var popularMovies: MutableList<TmdbMovie>? = null
+    suspend fun getPopularMovies(): MutableList<MovieDTO>? {
+        var popularMovies: MutableList<MovieDTO>? = null
         val popularMovieRequest = api.getPopularMovie()
         try {
             val response = popularMovieRequest.await()
