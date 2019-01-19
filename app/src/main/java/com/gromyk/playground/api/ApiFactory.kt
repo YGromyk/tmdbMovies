@@ -32,7 +32,7 @@ object ApiFactory{
 
     fun retrofit() : Retrofit = Retrofit.Builder()
         .client(tmdbClient)
-        .baseUrl("https://api.themoviedb.org/3/")
+        .baseUrl(BaseUrl.BASE_REST_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()

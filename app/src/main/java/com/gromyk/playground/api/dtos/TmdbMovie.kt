@@ -5,5 +5,6 @@ data class TmdbMovie(
     val vote_average: Double,
     val title: String,
     val overview: String,
-    val adult: Boolean
+    val adult: Boolean,
+    val backdrop_path: String
 )
