@@ -1,10 +1,12 @@
 package com.gromyk.persistence
 
 import android.app.Application
-import android.os.AsyncTask
 import androidx.lifecycle.MutableLiveData
+import com.gromyk.persistence.appdb.AppDB
 import com.gromyk.persistence.model.genres.DBGenre
 import com.gromyk.persistence.model.genres.GenreDAO
+import com.gromyk.persistence.model.genres.movie.DBMovie
+import com.gromyk.persistence.model.genres.movie.MoviesDAO
 
 
 /**
@@ -16,22 +18,24 @@ class AppRepository(application: Application) {
     var genres: MutableLiveData<List<DBGenre>> = MutableLiveData()
         private set
 
+    private var movieDAO: MoviesDAO
+    var movies: MutableLiveData<List<DBMovie>> = MutableLiveData()
+        private set
+
+
     init {
         val db = AppDB.getInstance(application)
         genreDAO = db?.genreDAO()!!
         genres.postValue(genreDAO.getGenres())
+        movieDAO = db.movieDAO()
+        movies.postValue(movieDAO.getMovies())
     }
 
-    fun insert(genres: List<DBGenre>) {
-        InsertAsyncTask(genreDAO).execute(genres)
+    fun insertGenres(genres: List<DBGenre>) {
+        genreDAO.insert(genres)
     }
 
-    private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: GenreDAO) :
-        AsyncTask<List<DBGenre>, Void, Void>() {
-
-        override fun doInBackground(vararg params: List<DBGenre>): Void? {
-            mAsyncTaskDao.insert(params[0])
-            return null
-        }
+    fun insertMovies(genres: List<DBMovie>) {
+        movieDAO.insert(genres)
     }
 }

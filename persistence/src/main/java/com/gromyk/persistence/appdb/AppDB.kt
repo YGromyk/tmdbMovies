@@ -1,4 +1,4 @@
-package com.gromyk.persistence
+package com.gromyk.persistence.appdb
 
 import android.content.Context
 import androidx.room.Database
@@ -6,13 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.gromyk.persistence.model.genres.DBGenre
 import com.gromyk.persistence.model.genres.GenreDAO
+import com.gromyk.persistence.model.genres.movie.DBMovie
+import com.gromyk.persistence.model.genres.movie.MoviesDAO
 
 /**
  * Created by Yuriy Gromyk on 1/19/19.
  */
 @Database(
-    entities = [DBGenre::class],
-    version = 1
+    entities = [DBGenre::class, DBMovie::class],
+    version = 2
 )
 abstract class AppDB : RoomDatabase() {
     companion object {
@@ -27,6 +29,7 @@ abstract class AppDB : RoomDatabase() {
                             AppDB::class.java,
                             "movies.db"
                         )
+                        .addMigrations(Migrations.MIGRATION_ADD_MOVIES_TABLE)
                         .build()
                 }
             }
@@ -35,4 +38,6 @@ abstract class AppDB : RoomDatabase() {
     }
 
     abstract fun genreDAO(): GenreDAO
+
+    abstract fun movieDAO(): MoviesDAO
 }

@@ -31,7 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private fun loadGenres() {
         scope.launch {
             val list = genresRepository.loadGenres()
-            AllDataRepository.getInstance().insert(list?.map { it.toDBGenre() } ?: return@launch)
+            AllDataRepository.getInstance().insertGenres(list?.map { it.toDBGenre() } ?: return@launch)
         }
     }
 
