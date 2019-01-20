@@ -6,6 +6,7 @@ import com.gromyk.playground.api.ApiFactory
 import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.repositories.AllDataRepository
 import com.gromyk.playground.repositories.MovieRepository
+import com.gromyk.playground.utils.converters.toDBMovie
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -23,22 +24,22 @@ class TmdbViewModel : ViewModel() {
     fun fetchMovies() {
         scope.launch {
             val popularMovies = repository.getPopularMovies()
-            popularMoviesLiveData.postValue(
-                popularMovies?.map { item ->
-                    item.genres = {
-                        val list = mutableListOf<String>()
-                        item.genreIds?.forEach { id ->
-                            list.add(
-                                AllDataRepository.getInstance().genres.value
-                                    ?.find { it.id == id }?.name
-                                    ?: return@forEach
-                            )
-                        }
-                        list
-                    }.invoke()
-                    item
-                }?.toMutableList()
-            )
+            val list = popularMovies?.map { item ->
+                item.genres = {
+                    val list = mutableListOf<String>()
+                    item.genreIds?.forEach { id ->
+                        list.add(
+                            AllDataRepository.getInstance().genres.value
+                                ?.find { it.id == id }?.name
+                                ?: return@forEach
+                        )
+                    }
+                    list
+                }.invoke()
+                item
+            }?.toMutableList()
+            popularMoviesLiveData.postValue(list)
+            AllDataRepository.getInstance().insertMovies(list?.map { it.toDBMovie() } ?: emptyList())
         }
     }
 
