@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="4dp"
+    android:background="?selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/base"
+    app:cardCornerRadius="@dimen/base_small">
+
+
+    <ImageView
+        android:id="@+id/movieImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/movieImageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/movieImageView"
+        app:layout_constraintTop_toBottomOf="@+id/movieImageView"
+        tools:text="Some moview" />
+
+    <TextView
+        android:id="@+id/releaseDateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        tools:text="12.01.2018" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="7"
+        app:layout_constraintEnd_toStartOf="@+id/rateTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/movieImageView"
+        app:layout_constraintTop_toBottomOf="@+id/movieImageView"
+        tools:text="SOme movie about some stufdddddddddddddddddddddddddddddddf" />
+
+    <TextView
+        android:id="@+id/genresTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="7"
+        app:layout_constraintEnd_toEndOf="@+id/movieImageView"
+        app:layout_constraintStart_toStartOf="@+id/movieImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rateTextView"
+        tools:text="SOme movie about some stufdddddddddddddddddddddddddddddddf" />
+
+    <TextView
+        android:id="@+id/rateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/releaseDateTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/releaseDateTextView"
+        app:layout_constraintTop_toBottomOf="@+id/releaseDateTextView"
+        tools:text="sdas" />
+</androidx.constraintlayout.widget.ConstraintLayout>

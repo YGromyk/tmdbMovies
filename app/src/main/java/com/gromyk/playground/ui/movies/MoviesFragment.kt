@@ -1,17 +1,20 @@
-package com.gromyk.playground.ui
+package com.gromyk.playground.ui.movies
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
 import com.gromyk.playground.api.dtos.movies.MovieDTO
+import com.gromyk.playground.ui.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 /**
@@ -41,7 +44,7 @@ class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
             orientation = RecyclerView.VERTICAL
         }
         contentView.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         )
         swipeRefreshLayout.setOnRefreshListener { viewModel.fetchMovies() }
         viewModel.fetchMovies()
@@ -53,6 +56,7 @@ class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
             popularMoviesLiveData.observe(this@MoviesFragment, Observer {
                 onMoviesLoaded(it)
             })
+            isDataLoading.observe(this@MoviesFragment, Observer { onDataLoaded(it!!) })
         }
     }
 
@@ -62,8 +66,21 @@ class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
         contentView.adapter = adapter
     }
 
-    override fun clickOnMovie(movie: MovieDTO) {
+    private fun onDataLoaded(isDataLoading: Boolean) {
+        if (isDataLoading) {
+            progressBar.visibility = View.VISIBLE
+            contentView.visibility = View.GONE
+        } else {
+            progressBar.visibility = View.GONE
+            contentView.visibility = View.VISIBLE
+        }
+    }
 
+    override fun clickOnMovie(movie: MovieDTO) {
+        view?.findNavController()?.apply {
+            val bundle = bundleOf("movieId" to movie.id)
+            navigate(R.id.action_moviesFragment_to_movieFragment, bundle)
+        }
     }
 
     companion object {

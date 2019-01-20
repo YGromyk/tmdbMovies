@@ -1,4 +1,4 @@
-package com.gromyk.playground.ui
+package com.gromyk.playground.ui.movies
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,8 +20,10 @@ class TmdbViewModel : ViewModel() {
         MovieRepository(ApiFactory.tmdbApi)
 
     val popularMoviesLiveData = MutableLiveData<MutableList<MovieDTO>>()
+    val isDataLoading = MutableLiveData<Boolean>()
 
     fun fetchMovies() {
+        isDataLoading.value = true
         scope.launch {
             val popularMovies = repository.getPopularMovies()
             val list = popularMovies?.map { item ->
@@ -39,6 +41,7 @@ class TmdbViewModel : ViewModel() {
                 item
             }?.toMutableList()
             popularMoviesLiveData.postValue(list)
+            isDataLoading.postValue(false)
             AllDataRepository.getInstance().insertMovies(list?.map { it.toDBMovie() } ?: emptyList())
         }
     }
