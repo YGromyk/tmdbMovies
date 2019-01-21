@@ -6,6 +6,7 @@ import com.gromyk.playground.api.ApiFactory
 import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.repositories.AllDataRepository
 import com.gromyk.playground.repositories.MovieRepository
+import com.gromyk.playground.ui.base.BaseViewModel
 import com.gromyk.playground.utils.converters.toDBMovie
 import com.gromyk.playground.utils.networkstate.NetworkState
 import com.gromyk.playground.utils.networkstate.onLoading
@@ -13,18 +14,10 @@ import com.gromyk.playground.utils.networkstate.onSuccess
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class TmdbViewModel : ViewModel() {
-    private val parentJob = Job()
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Default
-    private val scope = CoroutineScope(coroutineContext)
-
+class TmdbViewModel : BaseViewModel() {
     private val repository: MovieRepository =
         MovieRepository(ApiFactory.tmdbApi)
-
     val popularMoviesLiveData = MutableLiveData<MutableList<MovieDTO>>()
-
-    val networkState = MutableLiveData<NetworkState>()
     fun fetchMovies() {
         networkState.onLoading()
         scope.launch {

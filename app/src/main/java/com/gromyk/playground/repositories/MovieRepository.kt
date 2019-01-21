@@ -2,6 +2,7 @@ package com.gromyk.playground.repositories
 
 import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.api.services.TmdbService
+import retrofit2.HttpException
 import timber.log.Timber
 
 class MovieRepository(private val api: TmdbService) {
@@ -20,5 +21,17 @@ class MovieRepository(private val api: TmdbService) {
         } catch (e: Exception) {
         }
         return popularMovies
+    }
+
+    suspend fun getMovieBy(id: Int): MovieDTO? {
+        val movie: MovieDTO?
+        val movieRequest = api.getMovieById(id)
+        val response = movieRequest.await()
+        if (response.isSuccessful) {
+            movie = response.body()
+        } else {
+            throw HttpException(response)
+        }
+        return movie
     }
 }

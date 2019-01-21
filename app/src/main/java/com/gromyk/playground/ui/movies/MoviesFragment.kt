@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
 import com.gromyk.playground.api.dtos.movies.MovieDTO
-import com.gromyk.playground.ui.MovieAdapter
 import com.gromyk.playground.ui.base.BaseFragment
 import com.gromyk.playground.utils.networkstate.NetworkState
 import kotlinx.android.synthetic.main.fragment_movies.*
+import kotlinx.android.synthetic.main.progress_bar_layout.*
 
 /**
  * Created by Yuriy Gromyk on 1/18/19.
