@@ -7,6 +7,9 @@ import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.repositories.AllDataRepository
 import com.gromyk.playground.repositories.MovieRepository
 import com.gromyk.playground.utils.converters.toDBMovie
+import com.gromyk.playground.utils.networkstate.NetworkState
+import com.gromyk.playground.utils.networkstate.onLoading
+import com.gromyk.playground.utils.networkstate.onSuccess
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -20,10 +23,10 @@ class TmdbViewModel : ViewModel() {
         MovieRepository(ApiFactory.tmdbApi)
 
     val popularMoviesLiveData = MutableLiveData<MutableList<MovieDTO>>()
-    val isDataLoading = MutableLiveData<Boolean>()
 
+    val networkState = MutableLiveData<NetworkState>()
     fun fetchMovies() {
-        isDataLoading.value = true
+        networkState.onLoading()
         scope.launch {
             val popularMovies = repository.getPopularMovies()
             val list = popularMovies?.map { item ->
@@ -41,8 +44,9 @@ class TmdbViewModel : ViewModel() {
                 item
             }?.toMutableList()
             popularMoviesLiveData.postValue(list)
-            isDataLoading.postValue(false)
-            AllDataRepository.getInstance().insertMovies(list?.map { it.toDBMovie() } ?: emptyList())
+            networkState.onSuccess()
+            AllDataRepository.getInstance().insertMovies(list?.map { it.toDBMovie() }
+                ?: emptyList())
         }
     }
 
