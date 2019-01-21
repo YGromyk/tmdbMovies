@@ -13,7 +13,6 @@ class MovieRepository(private val api: TmdbService) {
             val response = popularMovieRequest.await()
             if (response.isSuccessful) {
                 val movieResponse = response.body()
-                //This is single object Tmdb Movie response
                 popularMovies = movieResponse?.results?.toMutableList()
             } else {
                 Timber.e(response.errorBody().toString())

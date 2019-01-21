@@ -42,11 +42,4 @@ class TmdbViewModel : BaseViewModel() {
                 ?: emptyList())
         }
     }
-
-    private fun cancelAllRequests() = coroutineContext.cancel()
-
-    override fun onCleared() {
-        cancelAllRequests()
-        super.onCleared()
-    }
 }

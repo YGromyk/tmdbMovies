@@ -12,5 +12,5 @@ interface TmdbService {
     fun getPopularMovie(): Deferred<Response<TmdbMovieResponse>>
 
     @GET("movie/{id}")
-    fun getMovieById(@Path("id") id:Int): Deferred<Response<MovieDTO>>
+    fun getMovieById(@Path("id") id: Int): Deferred<Response<MovieDTO>>
 }

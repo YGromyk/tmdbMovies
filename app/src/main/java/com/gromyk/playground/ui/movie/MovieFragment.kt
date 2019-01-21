@@ -41,7 +41,10 @@ class MovieFragment : BaseFragment() {
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-        viewModel.movieData.observe(this@MovieFragment, Observer { initViewWith(movie = it!!) })
+        viewModel.apply {
+            networkState.observe(this@MovieFragment, Observer { onNetworkStateChanged(it!!) })
+            movieData.observe(this@MovieFragment, Observer { initViewWith(movie = it!!) })
+        }
     }
 
     private fun initView() {

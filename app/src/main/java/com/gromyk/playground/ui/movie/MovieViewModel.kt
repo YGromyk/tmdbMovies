@@ -8,7 +8,9 @@ import com.gromyk.playground.ui.base.BaseViewModel
 import com.gromyk.playground.utils.networkstate.onError
 import com.gromyk.playground.utils.networkstate.onLoading
 import com.gromyk.playground.utils.networkstate.onSuccess
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.Exception
 
 class MovieViewModel : BaseViewModel() {
@@ -17,8 +19,8 @@ class MovieViewModel : BaseViewModel() {
     val movieData = MutableLiveData<MovieDTO>()
 
     fun fetchMovieBy(id: Int) {
+        networkState.onLoading()
         scope.launch {
-            networkState.onLoading()
             try {
                 val movie = repository.getMovieBy(id)
                 movieData.postValue(movie)

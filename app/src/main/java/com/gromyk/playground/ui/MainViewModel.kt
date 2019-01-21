@@ -25,12 +25,12 @@ class MainViewModel : BaseViewModel() {
     private fun loadGenres() {
         scope.launch {
             val list = genresRepository.loadGenres()
-            AllDataRepository.getInstance().insertGenres(list?.map { it.toDBGenre() } ?: return@launch)
+            AllDataRepository
+                .getInstance()
+                .insertGenres(
+                    genres = list?.map { it.toDBGenre() }
+                        ?: return@launch
+                )
         }
-    }
-
-    override fun onCleared() {
-        coroutineContext.cancel()
-        super.onCleared()
     }
 }
