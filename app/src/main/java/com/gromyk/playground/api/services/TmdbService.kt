@@ -9,8 +9,8 @@ import retrofit2.http.Path
 
 interface TmdbService {
     @GET("movie/popular")
-    fun getPopularMovie(): Deferred<Response<TmdbMovieResponse>>
+    fun getPopularMovieAsync(): Deferred<Response<TmdbMovieResponse>>
 
     @GET("movie/{id}")
-    fun getMovieById(@Path("id") id: Int): Deferred<Response<MovieDTO>>
+    fun getMovieByIdAsync(@Path("id") id: Int): Deferred<Response<MovieDTO>>
 }
