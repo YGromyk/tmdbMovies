@@ -7,17 +7,14 @@ import timber.log.Timber
 
 class MovieRepository(private val api: TmdbService) {
     suspend fun getPopularMovies(): MutableList<MovieDTO>? {
-        var popularMovies: MutableList<MovieDTO>? = null
+        val popularMovies: MutableList<MovieDTO>?
         val popularMovieRequest = api.getPopularMovie()
-        try {
-            val response = popularMovieRequest.await()
-            if (response.isSuccessful) {
-                val movieResponse = response.body()
-                popularMovies = movieResponse?.results?.toMutableList()
-            } else {
-                Timber.e(response.errorBody().toString())
-            }
-        } catch (e: Exception) {
+        val response = popularMovieRequest.await()
+        if (response.isSuccessful) {
+            val movieResponse = response.body()
+            popularMovies = movieResponse?.results?.toMutableList()
+        } else {
+            throw HttpException(response)
         }
         return popularMovies
     }
