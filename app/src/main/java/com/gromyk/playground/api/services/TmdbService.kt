@@ -1,7 +1,7 @@
-package com.gromyk.playground.api
+package com.gromyk.playground.api.services
 
-import com.gromyk.playground.api.dtos.TmdbMovie
-import com.gromyk.playground.api.dtos.TmdbMovieResponse
+import com.gromyk.playground.api.dtos.movies.MovieDTO
+import com.gromyk.playground.api.dtos.movies.TmdbMovieResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,5 +12,5 @@ interface TmdbService {
     fun getPopularMovie(): Deferred<Response<TmdbMovieResponse>>
 
     @GET("movie/{id}")
-    fun getMovieById(@Path("id") id:Int): Deferred<Response<TmdbMovie>>
+    fun getMovieById(@Path("id") id:Int): Deferred<Response<MovieDTO>>
 }
