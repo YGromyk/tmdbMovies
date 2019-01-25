@@ -1,26 +1,34 @@
-package com.gromyk.playground.ui
+package com.gromyk.playground.ui.movies
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gromyk.playground.R
 import com.gromyk.playground.api.dtos.movies.MovieDTO
+import com.gromyk.playground.ui.base.BaseFragment
+import com.gromyk.playground.utils.networkstate.NetworkState
 import kotlinx.android.synthetic.main.fragment_movies.*
+import kotlinx.android.synthetic.main.progress_bar_layout.*
 
 /**
  * Created by Yuriy Gromyk on 1/18/19.
  */
 
-class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
-    lateinit var viewModel: TmdbViewModel
+class MoviesFragment : BaseFragment(), MovieAdapter.OnMovieSelected {
+    private lateinit var viewModel: TmdbViewModel
     private lateinit var adapter: MovieAdapter
+    override val progressView: ProgressBar? by lazy {
+        progressBar
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +61,7 @@ class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
             popularMoviesLiveData.observe(this@MoviesFragment, Observer {
                 onMoviesLoaded(it)
             })
+            networkState.observe(this@MoviesFragment, Observer { onNetworkStateChanged(it!!) })
         }
     }
 
@@ -62,8 +71,27 @@ class MoviesFragment : Fragment(), MovieAdapter.OnMovieSelected {
         contentView.adapter = adapter
     }
 
-    override fun clickOnMovie(movie: MovieDTO) {
+    override fun onNetworkStateChanged(networkState: NetworkState) {
+        when (networkState.status) {
+            NetworkState.LOADING -> {
+                progressView?.visibility = View.VISIBLE
+                contentView.visibility = View.GONE
+            }
+            NetworkState.FAILED -> {
 
+            }
+            NetworkState.SUCCESS -> {
+                progressView?.visibility = View.GONE
+                contentView.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun clickOnMovie(movie: MovieDTO) {
+        view?.findNavController()?.apply {
+            val bundle = bundleOf("movieId" to movie.id)
+            navigate(R.id.action_moviesFragment_to_movieFragment, bundle)
+        }
     }
 
     companion object {

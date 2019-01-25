@@ -1,4 +1,4 @@
-package com.gromyk.playground.ui
+package com.gromyk.playground.ui.movies
 
 import android.view.LayoutInflater
 import android.view.View

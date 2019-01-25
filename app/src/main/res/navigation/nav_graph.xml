@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/nav_graph"
-	app:startDestination="@id/moviesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/moviesFragment">
 
-	<fragment
-		android:id="@+id/moviesFragment"
-		android:name="com.gromyk.playground.ui.MoviesFragment"
-		android:label="MoviesFragment" />
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.gromyk.playground.ui.movies.MoviesFragment"
+        android:label="MoviesFragment">
+        <action
+            android:id="@+id/action_moviesFragment_to_movieFragment"
+            app:destination="@id/movieFragment"
+            app:enterAnim="@anim/ib_bug_slide_from_right"
+            app:exitAnim="@anim/ib_bug_slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/moviesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.gromyk.playground.ui.movie.MovieFragment"
+        android:label="MoviesFragment">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
