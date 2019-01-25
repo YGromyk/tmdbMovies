@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "823156016905",
+    "firebase_url": "https://tmdbmovies-50b73.firebaseio.com",
+    "project_id": "tmdbmovies-50b73",
+    "storage_bucket": "tmdbmovies-50b73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823156016905:android:f609e45da8448a86",
+        "android_client_info": {
+          "package_name": "com.gromyk.playground"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823156016905-6j8nq3kek5paqmhrkp0ci73ht8jl68iu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gromyk.playground",
+            "certificate_hash": "2104848c976658c374b53d47d23b2d81752f1dfb"
+          }
+        },
+        {
+          "client_id": "823156016905-i3ul4s6c45084hv1r4cta7bfqe1e9380.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw5HwqhFL7CZlBevCxyWaA-WC_zxp_AKY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823156016905-i3ul4s6c45084hv1r4cta7bfqe1e9380.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
