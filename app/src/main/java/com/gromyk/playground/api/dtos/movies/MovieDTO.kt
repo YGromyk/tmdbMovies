@@ -1,5 +1,6 @@
 package com.gromyk.playground.api.dtos.movies
 
+import com.gromyk.playground.api.dtos.genres.GenreDTO
 import com.squareup.moshi.Json
 
 data class MovieDTO(
@@ -30,7 +31,9 @@ data class MovieDTO(
     @field:Json(name = "adult")
     var adult: Boolean = false,
     @field:Json(name = "vote_count")
-    var voteCount: Int = 0
+    var voteCount: Int = 0,
+    @field:Json(name = "genres")
+    var genres: List<GenreDTO> = mutableListOf()
 ) {
-    var genres: List<String> = mutableListOf()
+    var genresNames: List<String> = mutableListOf()
 }

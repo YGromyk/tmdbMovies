@@ -44,9 +44,9 @@ class MovieAdapter(private val items: List<MovieDTO>, var listener: OnMovieSelec
             releaseDateTextView.text = item.releaseDate
             movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + item.backdropPath)
             val genres = buildString {
-                item.genres.forEach {
+                item.genresNames.forEach {
                     append(it)
-                    append(if (it === item.genres.last()) "." else ", ")
+                    append(if (it === item.genresNames.last()) "." else ", ")
                 }
             }
             genresTextView.text = genres

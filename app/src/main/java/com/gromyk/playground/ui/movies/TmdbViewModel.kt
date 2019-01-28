@@ -1,20 +1,17 @@
 package com.gromyk.playground.ui.movies
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.gromyk.playground.api.ApiFactory
 import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.repositories.AllDataRepository
 import com.gromyk.playground.repositories.MovieRepository
 import com.gromyk.playground.ui.base.BaseViewModel
 import com.gromyk.playground.utils.converters.toDBMovie
-import com.gromyk.playground.utils.networkstate.NetworkState
 import com.gromyk.playground.utils.networkstate.onError
 import com.gromyk.playground.utils.networkstate.onLoading
 import com.gromyk.playground.utils.networkstate.onSuccess
 import kotlinx.coroutines.*
 import retrofit2.HttpException
-import kotlin.coroutines.CoroutineContext
 
 class TmdbViewModel : BaseViewModel() {
     private val repository: MovieRepository =
@@ -26,7 +23,7 @@ class TmdbViewModel : BaseViewModel() {
             try {
                 val popularMovies = repository.getPopularMovies()
                 val list = popularMovies?.map { item ->
-                    item.genres = {
+                    item.genresNames = {
                         val list = mutableListOf<String>()
                         item.genreIds?.forEach { id ->
                             list.add(
