@@ -59,6 +59,7 @@ class MovieFragment : BaseFragment() {
             descriptionTextView.text = overview
             rateTextView.text = voteAverage.toString()
             movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + backdropPath)
+            taglineTextView.text = movie.tagline
         }
     }
 
