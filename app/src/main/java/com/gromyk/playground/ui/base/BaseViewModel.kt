@@ -15,7 +15,7 @@ abstract class BaseViewModel : ViewModel() {
         get() = parentJob + Dispatchers.IO
     protected val scope = CoroutineScope(coroutineContext)
     val networkState = MutableLiveData<NetworkState>()
-
+    val titleData = MutableLiveData<String>()
 
     private fun cancelAllRequests() = coroutineContext.cancel()
 
@@ -23,4 +23,6 @@ abstract class BaseViewModel : ViewModel() {
         cancelAllRequests()
         super.onCleared()
     }
+
+    abstract fun updateTitle()
 }

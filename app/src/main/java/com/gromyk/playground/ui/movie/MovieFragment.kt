@@ -20,8 +20,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MovieFragment : BaseFragment(),
     OnBackPressedListener {
     override val viewModel by viewModel<MovieViewModel>()
-
     private var movieId: Int? = null
+
     override val progressView: ProgressBar? by lazy {
         progressBar
     }

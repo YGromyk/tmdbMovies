@@ -33,4 +33,6 @@ class MainViewModel : BaseViewModel() {
                 )
         }
     }
+
+    override fun updateTitle() = Unit
 }
