@@ -1,12 +1,15 @@
 package com.gromyk.playground
 
 import android.app.Application
+import com.gromyk.playground.di.api
+import com.gromyk.playground.di.repositories
 import com.gromyk.playground.di.viewModels
 import com.gromyk.playground.utils.resources.ResourceProvider
 import com.gromyk.playground.utils.resources.ResourceProviderImpl
 import com.instabug.library.Instabug
 import com.instabug.library.invocation.InstabugInvocationEvent
 import org.koin.android.ext.android.startKoin
+import org.koin.android.logger.AndroidLogger
 import timber.log.Timber
 
 
@@ -23,8 +26,12 @@ class App : Application() {
     }
 
     private fun initKoin() {
-        val modules = listOf(viewModels)
-        startKoin(this, modules)
+        val modules = listOf(viewModels, api, repositories)
+        startKoin(
+            androidContext = this,
+            modules = modules,
+            logger = AndroidLogger()
+        )
     }
 
     fun getResourceProvider(): ResourceProvider {

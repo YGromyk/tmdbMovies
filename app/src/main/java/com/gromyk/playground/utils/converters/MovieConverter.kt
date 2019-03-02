@@ -4,7 +4,7 @@ import com.gromyk.persistence.model.genres.movie.DBMovie
 import com.gromyk.playground.api.dtos.movies.MovieDTO
 
 /**
- * Created by Yuriy Gromyk on 1/20/19.
+ * Created by Yurii Gromyk on 1/20/19.
  */
 
 fun MovieDTO.toDBMovie() = DBMovie(

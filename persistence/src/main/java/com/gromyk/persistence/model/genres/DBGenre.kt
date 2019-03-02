@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 
 @Entity(tableName = DBGenre.TABLE_NAME, indices = [Index(value = [(DBGenre.COLUMN_GENRE_ID)], unique = true)])

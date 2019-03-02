@@ -12,7 +12,7 @@ import com.gromyk.playground.api.dtos.movies.MovieDTO
 import com.gromyk.playground.utils.loadPhoto
 
 /**
- * Created by Yuriy Gromyk on 1/18/19.
+ * Created by Yurii Gromyk on 1/18/19.
  */
 
 class MovieAdapter(private val items: List<MovieDTO>, var listener: OnMovieSelected) :

@@ -1,7 +1,7 @@
 package com.gromyk.playground.api
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 object BaseUrl {
     const val BASE_REST_URL = "https://api.themoviedb.org/3/"

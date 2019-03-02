@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer
 import com.gromyk.playground.utils.networkstate.NetworkState
 
 abstract class BaseFragment: Fragment() {
-    protected abstract val progressView: ProgressBar?
     protected abstract val viewModel: BaseViewModel
     protected abstract fun onNetworkStateChanged(networkState: NetworkState)
 

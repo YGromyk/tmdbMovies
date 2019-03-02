@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.lifecycle.Observer
 import com.gromyk.playground.R
 import com.gromyk.playground.api.BaseUrl
@@ -21,10 +20,6 @@ class MovieFragment : BaseFragment(),
     OnBackPressedListener {
     override val viewModel by viewModel<MovieViewModel>()
     private var movieId: Int? = null
-
-    override val progressView: ProgressBar? by lazy {
-        progressBar
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,14 +66,14 @@ class MovieFragment : BaseFragment(),
     override fun onNetworkStateChanged(networkState: NetworkState) {
         when (networkState.status) {
             NetworkState.LOADING -> {
-                progressView?.visibility = View.VISIBLE
+                progressBar?.visibility = View.VISIBLE
                 contentView.visibility = View.GONE
             }
             NetworkState.FAILED -> {
 
             }
             NetworkState.SUCCESS -> {
-                progressView?.visibility = View.GONE
+                progressBar?.visibility = View.GONE
                 contentView.visibility = View.VISIBLE
             }
         }

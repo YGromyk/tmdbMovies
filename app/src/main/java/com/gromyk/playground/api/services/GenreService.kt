@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 
 interface GenreService {

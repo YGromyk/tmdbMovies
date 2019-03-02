@@ -4,7 +4,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
- * Created by Yuriy Gromyk on 1/20/19.
+ * Created by Yurii Gromyk on 1/20/19.
  */
 
 object Migrations {

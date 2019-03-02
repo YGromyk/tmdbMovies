@@ -8,7 +8,7 @@ import com.gromyk.persistence.model.genres.movie.DBMovie.Companion.COLUMN_ID
 import com.gromyk.persistence.model.genres.movie.DBMovie.Companion.TABLE_NAME
 
 /**
- * Created by Yuriy Gromyk on 1/20/19.
+ * Created by Yurii Gromyk on 1/20/19.
  */
 
 @Dao

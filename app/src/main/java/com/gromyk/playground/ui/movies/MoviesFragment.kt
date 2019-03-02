@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -20,16 +19,13 @@ import kotlinx.android.synthetic.main.progress_bar_layout.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
- * Created by Yuriy Gromyk on 1/18/19.
+ * Created by Yurii Gromyk on 1/18/19.
  */
 
 class MoviesFragment : BaseFragment(),
     MovieAdapter.OnMovieSelected {
     override val viewModel by viewModel<TmdbViewModel>()
     private lateinit var adapter: MovieAdapter
-    override val progressView: ProgressBar? by lazy {
-        progressBar
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,14 +70,14 @@ class MoviesFragment : BaseFragment(),
     override fun onNetworkStateChanged(networkState: NetworkState) {
         when (networkState.status) {
             NetworkState.LOADING -> {
-                progressView?.visibility = View.VISIBLE
+                progressBar?.visibility = View.VISIBLE
                 contentView.visibility = View.GONE
             }
             NetworkState.FAILED -> {
 
             }
             NetworkState.SUCCESS -> {
-                progressView?.visibility = View.GONE
+                progressBar?.visibility = View.GONE
                 contentView.visibility = View.VISIBLE
             }
         }

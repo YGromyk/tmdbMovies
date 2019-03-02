@@ -10,7 +10,7 @@ import com.gromyk.persistence.model.genres.movie.DBMovie
 import com.gromyk.persistence.model.genres.movie.MoviesDAO
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 @Database(
     entities = [DBGenre::class, DBMovie::class],
