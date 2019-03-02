@@ -11,8 +11,8 @@ jobs:
     - restore_cache:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
     - run:
-         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-         command: ./sdkmanager --licenses
+        name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+        command: ./sdkmanager --licenses
     - run:
         name: Download Dependencies
         command: ./gradlew androidDependencies
@@ -28,3 +28,6 @@ jobs:
         destination: reports
     - store_test_results:
         path: app/build/test-results
+    checkout:
+      post:
+      - cp local.properties.ci local.properties
