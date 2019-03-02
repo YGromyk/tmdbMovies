@@ -1,15 +1,30 @@
-sudo: false
-language: android
-android:
-  components:
-  - build-tools-26.0.3
-  - android-28
-  - extra
-  licenses:
-  - '.+'
-before_script:
-# Create and start emulator.
-- echo no | android create avd --force -n test -t "android-"$ANDROID_EMULATOR_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
-- emulator -avd test -no-window &
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+    - image: circleci/android:api-25-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+    - checkout
+    - restore_cache:
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    #      - run:
+    #         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+    #         command: sudo chmod +x ./gradlew
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+    - run:
+        name: Run Tests
+        command: ./gradlew lint test
+    - store_artifacts:
+        path: app/build/reports
+        destination: reports
+    - store_test_results:
+        path: app/build/test-results
