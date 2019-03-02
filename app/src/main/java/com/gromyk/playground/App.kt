@@ -2,6 +2,8 @@ package com.gromyk.playground
 
 import android.app.Application
 import com.gromyk.playground.di.viewModels
+import com.gromyk.playground.utils.resources.ResourceProvider
+import com.gromyk.playground.utils.resources.ResourceProviderImpl
 import com.instabug.library.Instabug
 import com.instabug.library.invocation.InstabugInvocationEvent
 import org.koin.android.ext.android.startKoin
@@ -9,7 +11,7 @@ import timber.log.Timber
 
 
 class App : Application() {
-class App: Application(){
+    private lateinit var resourceProvider: ResourceProviderImpl
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -23,6 +25,14 @@ class App: Application(){
     private fun initKoin() {
         val modules = listOf(viewModels)
         startKoin(this, modules)
+    }
+
+    fun getResourceProvider(): ResourceProvider {
+        if (!::resourceProvider.isInitialized)
+            resourceProvider = ResourceProviderImpl().apply {
+                context = this@App
+            }
+        return resourceProvider
     }
 
     companion object {
