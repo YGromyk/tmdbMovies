@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,13 +17,15 @@ import com.gromyk.playground.ui.base.BaseFragment
 import com.gromyk.playground.utils.networkstate.NetworkState
 import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.progress_bar_layout.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Yuriy Gromyk on 1/18/19.
  */
 
-class MoviesFragment : BaseFragment(), MovieAdapter.OnMovieSelected {
-    private lateinit var viewModel: TmdbViewModel
+class MoviesFragment : BaseFragment(),
+    MovieAdapter.OnMovieSelected {
+    override val viewModel by viewModel<TmdbViewModel>()
     private lateinit var adapter: MovieAdapter
     override val progressView: ProgressBar? by lazy {
         progressBar
@@ -56,7 +57,6 @@ class MoviesFragment : BaseFragment(), MovieAdapter.OnMovieSelected {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(TmdbViewModel::class.java)
         viewModel.apply {
             popularMoviesLiveData.observe(this@MoviesFragment, Observer {
                 onMoviesLoaded(it)

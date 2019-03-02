@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.gromyk.playground.R
 import com.gromyk.playground.api.BaseUrl
 import com.gromyk.playground.api.dtos.movies.MovieDTO
@@ -15,7 +14,9 @@ import com.gromyk.playground.utils.loadPhoto
 import com.gromyk.playground.utils.networkstate.NetworkState
 import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.android.synthetic.main.progress_bar_layout.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
+    override val viewModel by viewModel<MovieViewModel>()
 
 class MovieFragment : BaseFragment() {
     private lateinit var viewModel: MovieViewModel
@@ -40,7 +41,6 @@ class MovieFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.apply {
             networkState.observe(this@MovieFragment, Observer { onNetworkStateChanged(it!!) })
             movieData.observe(this@MovieFragment, Observer { initViewWith(movie = it!!) })
