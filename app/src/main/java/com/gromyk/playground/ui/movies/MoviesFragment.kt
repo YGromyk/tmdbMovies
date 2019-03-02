@@ -45,9 +45,6 @@ class MoviesFragment : BaseFragment(),
         contentView.layoutManager = LinearLayoutManager(context).apply {
             orientation = RecyclerView.VERTICAL
         }
-        contentView.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        )
         swipeRefreshLayout.setOnRefreshListener { viewModel.fetchMovies() }
         viewModel.fetchMovies()
     }
@@ -74,7 +71,6 @@ class MoviesFragment : BaseFragment(),
                 contentView.visibility = View.GONE
             }
             NetworkState.FAILED -> {
-
             }
             NetworkState.SUCCESS -> {
                 progressBar?.visibility = View.GONE

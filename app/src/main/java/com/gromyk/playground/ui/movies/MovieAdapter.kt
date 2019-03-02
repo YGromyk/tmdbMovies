@@ -31,7 +31,6 @@ class MovieAdapter(private val items: List<MovieDTO>, var listener: OnMovieSelec
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val nameTextView: TextView by lazy { view.findViewById<TextView>(R.id.nameTextView) }
         private val descriptionTextView: TextView by lazy { view.findViewById<TextView>(R.id.descriptionTextView) }
-        private val rateTextView: TextView by lazy { view.findViewById<TextView>(R.id.rateTextView) }
         private val movieImageView: ImageView by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
         private val releaseDateTextView: TextView by lazy { view.findViewById<TextView>(R.id.releaseDateTextView) }
         private val genresTextView: TextView by lazy { view.findViewById<TextView>(R.id.genresTextView) }
@@ -40,7 +39,6 @@ class MovieAdapter(private val items: List<MovieDTO>, var listener: OnMovieSelec
             itemView.setOnClickListener { listener.clickOnMovie(item) }
             nameTextView.text = item.title
             descriptionTextView.text = item.overview
-            rateTextView.text = item.voteAverage.toString()
             releaseDateTextView.text = item.releaseDate
             movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + item.backdropPath)
             val genres = buildString {
