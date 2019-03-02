@@ -15,8 +15,7 @@ jobs:
     #         command: sudo chmod +x ./gradlew
     - run:
         name: Download Dependencies
-        working_directory: ~/code/tmdbMovies
-        command: ./gradlew androidDependencies
+        command: cd tmdbMovies;./gradlew androidDependencies
     - save_cache:
         paths:
         - ~/.gradle
