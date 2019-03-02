@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.gromyk.playground.R
 import com.gromyk.playground.api.BaseUrl
 import com.gromyk.playground.api.dtos.movies.MovieDTO
+import com.gromyk.playground.ui.OnBackPressedListener
 import com.gromyk.playground.ui.base.BaseFragment
 import com.gromyk.playground.utils.loadPhoto
 import com.gromyk.playground.utils.networkstate.NetworkState
@@ -16,10 +17,10 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.android.synthetic.main.progress_bar_layout.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+class MovieFragment : BaseFragment(),
+    OnBackPressedListener {
     override val viewModel by viewModel<MovieViewModel>()
 
-class MovieFragment : BaseFragment() {
-    private lateinit var viewModel: MovieViewModel
     private var movieId: Int? = null
     override val progressView: ProgressBar? by lazy {
         progressBar
@@ -81,5 +82,9 @@ class MovieFragment : BaseFragment() {
                 contentView.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onBackPressed() {
+        // clear resources
     }
 }
