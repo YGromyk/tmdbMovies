@@ -10,4 +10,12 @@ package com.gromyk.playground.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity     : AppCompatActivity()
+abstract class BaseActivity : AppCompatActivity(), ToolbarInteractor {
+    override fun setHomeIcon(iconId: Int) {
+        supportActionBar?.setIcon(iconId)
+    }
+
+    override fun setToolbarTitle(title: String?) {
+        supportActionBar?.title = title
+    }
+}

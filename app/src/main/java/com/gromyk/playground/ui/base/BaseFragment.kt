@@ -10,12 +10,12 @@ package com.gromyk.playground.ui.base
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.gromyk.playground.utils.networkstate.NetworkState
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
     protected abstract val viewModel: BaseViewModel
     protected abstract fun onNetworkStateChanged(networkState: NetworkState)
 
@@ -25,9 +25,18 @@ abstract class BaseFragment: Fragment() {
     }
 
     private fun setToolbarTitle(title: String?) {
-        if (activity is BaseActivity) {
-            (activity as BaseActivity).apply {
-                supportActionBar?.title = title
+        if (activity is ToolbarInteractor) {
+            (activity as ToolbarInteractor).apply {
+                setToolbarTitle(title)
+            }
+        }
+    }
+
+    @Suppress("unused")
+    private fun setToolbarIcon(@DrawableRes iconId: Int) {
+        if (activity is ToolbarInteractor) {
+            (activity as ToolbarInteractor).apply {
+                setToolbarIcon(iconId)
             }
         }
     }
