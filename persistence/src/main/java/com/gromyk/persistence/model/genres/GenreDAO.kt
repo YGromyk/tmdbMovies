@@ -8,7 +8,7 @@ import com.gromyk.persistence.model.genres.DBGenre.Companion.COLUMN_GENRE_ID
 import com.gromyk.persistence.model.genres.DBGenre.Companion.TABLE_NAME
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 @Dao
 abstract class GenreDAO {

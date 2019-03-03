@@ -4,25 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.gromyk.playground.R
 import com.gromyk.playground.api.BaseUrl
 import com.gromyk.playground.api.dtos.movies.MovieDTO
+import com.gromyk.playground.ui.OnBackPressedListener
 import com.gromyk.playground.ui.base.BaseFragment
 import com.gromyk.playground.utils.loadPhoto
 import com.gromyk.playground.utils.networkstate.NetworkState
 import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.android.synthetic.main.progress_bar_layout.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-class MovieFragment : BaseFragment() {
-    private lateinit var viewModel: MovieViewModel
+class MovieFragment : BaseFragment(),
+    OnBackPressedListener {
+    override val viewModel by viewModel<MovieViewModel>()
     private var movieId: Int? = null
-    override val progressView: ProgressBar? by lazy {
-        progressBar
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +37,6 @@ class MovieFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.apply {
             networkState.observe(this@MovieFragment, Observer { onNetworkStateChanged(it!!) })
             movieData.observe(this@MovieFragment, Observer { initViewWith(movie = it!!) })
@@ -59,6 +55,7 @@ class MovieFragment : BaseFragment() {
             descriptionTextView.text = overview
             rateTextView.text = voteAverage.toString()
             movieImageView.loadPhoto(BaseUrl.BASE_IMAGE_URL + backdropPath)
+            taglineTextView.text = movie.tagline
         }
     }
 
@@ -69,16 +66,20 @@ class MovieFragment : BaseFragment() {
     override fun onNetworkStateChanged(networkState: NetworkState) {
         when (networkState.status) {
             NetworkState.LOADING -> {
-                progressView?.visibility = View.VISIBLE
+                progressBar?.visibility = View.VISIBLE
                 contentView.visibility = View.GONE
             }
             NetworkState.FAILED -> {
 
             }
             NetworkState.SUCCESS -> {
-                progressView?.visibility = View.GONE
+                progressBar?.visibility = View.GONE
                 contentView.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onBackPressed() {
+        // clear resources
     }
 }

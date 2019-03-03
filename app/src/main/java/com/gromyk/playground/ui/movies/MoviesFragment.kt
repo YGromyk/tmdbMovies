@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,17 +16,16 @@ import com.gromyk.playground.ui.base.BaseFragment
 import com.gromyk.playground.utils.networkstate.NetworkState
 import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.progress_bar_layout.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
- * Created by Yuriy Gromyk on 1/18/19.
+ * Created by Yurii Gromyk on 1/18/19.
  */
 
-class MoviesFragment : BaseFragment(), MovieAdapter.OnMovieSelected {
-    private lateinit var viewModel: TmdbViewModel
+class MoviesFragment : BaseFragment(),
+    MovieAdapter.OnMovieSelected {
+    override val viewModel by viewModel<TmdbViewModel>()
     private lateinit var adapter: MovieAdapter
-    override val progressView: ProgressBar? by lazy {
-        progressBar
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +45,11 @@ class MoviesFragment : BaseFragment(), MovieAdapter.OnMovieSelected {
         contentView.layoutManager = LinearLayoutManager(context).apply {
             orientation = RecyclerView.VERTICAL
         }
-        contentView.addItemDecoration(
-            DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        )
         swipeRefreshLayout.setOnRefreshListener { viewModel.fetchMovies() }
         viewModel.fetchMovies()
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(TmdbViewModel::class.java)
         viewModel.apply {
             popularMoviesLiveData.observe(this@MoviesFragment, Observer {
                 onMoviesLoaded(it)
@@ -74,14 +67,13 @@ class MoviesFragment : BaseFragment(), MovieAdapter.OnMovieSelected {
     override fun onNetworkStateChanged(networkState: NetworkState) {
         when (networkState.status) {
             NetworkState.LOADING -> {
-                progressView?.visibility = View.VISIBLE
+                progressBar?.visibility = View.VISIBLE
                 contentView.visibility = View.GONE
             }
             NetworkState.FAILED -> {
-
             }
             NetworkState.SUCCESS -> {
-                progressView?.visibility = View.GONE
+                progressBar?.visibility = View.GONE
                 contentView.visibility = View.VISIBLE
             }
         }

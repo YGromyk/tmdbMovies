@@ -5,7 +5,7 @@ import com.gromyk.playground.api.services.GenreService
 import timber.log.Timber
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 
 class GenreRepository(private val api: GenreService) {

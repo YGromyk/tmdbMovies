@@ -4,7 +4,7 @@ import com.gromyk.persistence.model.genres.DBGenre
 import com.gromyk.playground.api.dtos.genres.GenreDTO
 
 /**
- * Created by Yuriy Gromyk on 1/19/19.
+ * Created by Yurii Gromyk on 1/19/19.
  */
 
 fun GenreDTO.toDBGenre() = DBGenre(id, name)
