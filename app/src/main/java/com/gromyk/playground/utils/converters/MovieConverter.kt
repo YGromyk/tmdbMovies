@@ -24,7 +24,7 @@ fun MovieDTO.toDBMovie() = DBMovie(
     voteCount = voteCount
 )
 
-fun DBMovie.toMovieDtO() = MovieDTO(
+fun DBMovie.toMovieDTO() = MovieDTO(
     id = id,
     overview = overview,
     originalLanguage = originalLanguage,

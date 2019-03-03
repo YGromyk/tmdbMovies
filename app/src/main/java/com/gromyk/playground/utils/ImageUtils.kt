@@ -8,9 +8,8 @@ import com.squareup.picasso.Picasso
  * Created by Yurii Gromyk on 1/19/19.
  */
 
-fun ImageView.loadPhoto(url: String) {
+fun ImageView.loadPhoto(url: String) =
     Picasso.get()
-            .load(url)
-            .placeholder(R.drawable.film_poster_placeholder)
-            .into(this)
-}
+        .load(url)
+        .placeholder(R.drawable.film_poster_placeholder)
+        .into(this)

@@ -9,4 +9,4 @@ import com.gromyk.playground.api.dtos.genres.GenreDTO
 
 fun GenreDTO.toDBGenre() = DBGenre(id, name)
 
-fun DBGenre.toGenreDtO() = GenreDTO(id, name)
+fun DBGenre.toGenreDTO() = GenreDTO(id, name)
