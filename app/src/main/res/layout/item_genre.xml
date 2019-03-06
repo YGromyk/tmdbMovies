@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Yurii Gromyk
+  ~ @date 3/6/19 9:45 PM
+  ~ @author gromyk
+  ~
+  ~ Copyright (c) 2019.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+</LinearLayout>
