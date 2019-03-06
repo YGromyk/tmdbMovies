@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.storage.FirebaseStorage
 import com.gromyk.playground.R
 import com.gromyk.playground.api.dtos.genres.GenreDTO
 import com.gromyk.playground.api.dtos.movies.MovieDTO
@@ -92,12 +93,14 @@ class MoviesFragment : BaseFragment(),
             NetworkState.LOADING -> {
                 progressBar?.visibility = View.VISIBLE
                 contentViewMovies.visibility = View.GONE
+                contentViewGenres.visibility = View.GONE
             }
             NetworkState.FAILED -> {
             }
             NetworkState.SUCCESS -> {
                 progressBar?.visibility = View.GONE
                 contentViewMovies.visibility = View.VISIBLE
+                contentViewGenres.visibility = View.VISIBLE
             }
         }
     }
