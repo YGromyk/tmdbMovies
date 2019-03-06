@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "org.jetbrains.kotlin.kapt"
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -47,6 +48,7 @@ dependencies {
     def timberVersion = "4.7.1"
     def nav_version = "1.0.0-rc02"
     def koin_version = "1.0.2"
+    def firebaseVersion = "16.1.0"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     api project(":persistence")
@@ -75,6 +77,8 @@ dependencies {
     //Moshi
     implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
     implementation "com.google.firebase:firebase-messaging:17.4.0"
+    implementation "com.google.firebase:firebase-storage:$firebaseVersion"
+    implementation "com.google.firebase:firebase-auth:$firebaseVersion"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     //Retrofit2
