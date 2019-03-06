@@ -2,6 +2,7 @@ package com.gromyk.playground.repositories
 
 import com.gromyk.playground.api.dtos.genres.GenreDTO
 import com.gromyk.playground.api.services.GenreService
+import retrofit2.HttpException
 import timber.log.Timber
 
 /**
@@ -19,6 +20,7 @@ class GenreRepository(private val api: GenreService) {
                 genres = genresResponse?.genres?.toMutableList()
             } else {
                 Timber.e(response.errorBody().toString())
+                throw HttpException(response)
             }
         } catch (e: Exception) {
         }

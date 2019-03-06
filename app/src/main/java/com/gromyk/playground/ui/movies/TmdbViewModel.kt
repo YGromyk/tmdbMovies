@@ -5,7 +5,9 @@ import com.gromyk.persistence.AppRepository
 import com.gromyk.playground.App
 import com.gromyk.playground.R
 import com.gromyk.playground.api.ApiFactory
+import com.gromyk.playground.api.dtos.genres.GenreDTO
 import com.gromyk.playground.api.dtos.movies.MovieDTO
+import com.gromyk.playground.repositories.GenreRepository
 import com.gromyk.playground.repositories.MovieRepository
 import com.gromyk.playground.ui.base.BaseViewModel
 import com.gromyk.playground.utils.converters.toDBMovie
@@ -20,7 +22,15 @@ class TmdbViewModel : BaseViewModel() {
     private val repository: MovieRepository =
         MovieRepository(ApiFactory.tmdbApi)
     val popularMoviesLiveData = MutableLiveData<MutableList<MovieDTO>>()
+    val genresLiveData = MutableLiveData<List<GenreDTO>>()
+
     private val appRepository: AppRepository by inject()
+    private val genresRepository: GenreRepository by inject()
+
+    fun fetchData() {
+        fetchMovies()
+        fetchGenres()
+    }
 
     fun fetchMovies() {
         networkState.onLoading()
@@ -49,6 +59,18 @@ class TmdbViewModel : BaseViewModel() {
                 networkState.onError(exception)
             }
         }
+    }
+
+    fun fetchGenres() {
+        scope.launch {
+            try {
+                val genres = genresRepository.loadGenres()
+                genresLiveData.postValue(genres)
+            } catch (exception: HttpException) {
+                networkState.onError(exception)
+            }
+        }
+
     }
 
     override fun updateTitle() {

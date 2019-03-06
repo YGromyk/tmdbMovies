@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
     <include
             layout="@layout/progress_bar_layout"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -14,17 +13,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/lastMoviesTextView"
+            android:text="@string/last_movies"
+            android:layout_marginStart="@dimen/base"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+            android:id="@+id/moviesSwipeRefreshLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            app:layout_constraintTop_toBottomOf="@id/lastMoviesTextView"
+            android:layout_height="122dp">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/contentView"
+                android:id="@+id/contentViewMovies"
                 android:background="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 tools:listitem="@layout/item_movie"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/moviesSwipeRefreshLayout"
+            android:id="@+id/genreMoviesTextView"
+            android:text="@string/genres"
+            android:layout_marginStart="@dimen/base"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/genresSwipeRefreshLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/genreMoviesTextView"
+            android:layout_height="126dp" android:layout_marginStart="8dp" android:layout_marginEnd="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/contentViewGenres"
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_genre"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
