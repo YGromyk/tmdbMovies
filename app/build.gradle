@@ -79,6 +79,8 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:17.4.0"
     implementation "com.google.firebase:firebase-storage:$firebaseVersion"
     implementation "com.google.firebase:firebase-auth:$firebaseVersion"
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     //Retrofit2

@@ -3,4 +3,6 @@
     <string name="movies">Movies</string>
     <string name="last_movies">Last movies</string>
     <string name="genres">Genres</string>
+    <string name="notification_channel">tmdbNotifications</string>
+    <string name="notification_channel_description">Notifications for TMDBMovies</string>
 </resources>
